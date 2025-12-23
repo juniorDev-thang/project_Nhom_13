@@ -1,0 +1,61 @@
+thang@juniortdt MINGW64 /d/Bài tập nhóm
+$ git clone https://github.com/juniorDev-thang/project_Nhom_13.git
+Cloning into 'project_Nhom_13'...
+remote: Enumerating objects: 3, done.
+remote: Counting objects: 100% (3/3), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+Receiving objects: 100% (3/3), done.
+
+thang@juniortdt MINGW64 /d/Bài tập nhóm
+$ cd project_Nhom_13
+
+thang@juniortdt MINGW64 /d/Bài tập nhóm/project_Nhom_13 (main)
+$ mkdir 13_13_DHKL19A3HN
+
+thang@juniortdt MINGW64 /d/Bài tập nhóm/project_Nhom_13 (main)
+$ cd 13_13_DHKL19A3HN
+
+thang@juniortdt MINGW64 /d/Bài tập nhóm/project_Nhom_13/13_13_DHKL19A3HN (main)
+$ touch cau_1.py
+
+thang@juniortdt MINGW64 /d/Bài tập nhóm/project_Nhom_13/13_13_DHKL19A3HN (main)
+$ touh cau_2.py
+bash: touh: command not found
+
+thang@juniortdt MINGW64 /d/Bài tập nhóm/project_Nhom_13/13_13_DHKL19A3HN (main)
+$ touch cau_2.py
+
+thang@juniortdt MINGW64 /d/Bài tập nhóm/project_Nhom_13/13_13_DHKL19A3HN (main)
+$ touch BangPhanCongCongViec.docx
+
+thang@juniortdt MINGW64 /d/Bài tập nhóm/project_Nhom_13/13_13_DHKL19A3HN (main)
+$ mkdir libs
+
+thang@juniortdt MINGW64 /d/Bài tập nhóm/project_Nhom_13/13_13_DHKL19A3HN (main)
+$ mkdir files
+
+thang@juniortdt MINGW64 /d/Bài tập nhóm/project_Nhom_13/13_13_DHKL19A3HN (main)
+$ cd libs
+
+thang@juniortdt MINGW64 /d/Bài tập nhóm/project_Nhom_13/13_13_DHKL19A3HN/libs (main)
+$ touch __init__.py
+
+thang@juniortdt MINGW64 /d/Bài tập nhóm/project_Nhom_13/13_13_DHKL19A3HN/libs (main)
+$ touch thuvien_karaoke.py
+
+thang@juniortdt MINGW64 /d/Bài tập nhóm/project_Nhom_13/13_13_DHKL19A3HN/libs (main)
+$ cd ..
+
+thang@juniortdt MINGW64 /d/Bài tập nhóm/project_Nhom_13/13_13_DHKL19A3HN (main)
+$ cd files
+
+thang@juniortdt MINGW64 /d/Bài tập nhóm/project_Nhom_13/13_13_DHKL19A3HN/files (main)
+$ touch ds_hoadon.csv
+
+thang@juniortdt MINGW64 /d/Bài tập nhóm/project_Nhom_13/13_13_DHKL19A3HN/files (main)
+$ cd ..
+
+thang@juniortdt MINGW64 /d/Bài tập nhóm/project_Nhom_13/13_13_DHKL19A3HN (main)
+$ touch lichsulamtrengit.txt
+
+thang@juniortdt MINGW64 /d/Bài tập nhóm/project_Nhom_13/13_13_DHKL19A3HN (main)
