@@ -14,14 +14,13 @@ def day_padovan(gioi_han):
         if so_padovan_moi > gioi_han:       # nếu vượt quá giới hạn thì dừng
             break    
         day.append(so_padovan_moi)   # thêm số padovan vào cuối danh sách
-    return day            
+    return day        
+K = int(input("nhập số K:"))
+m = int(input("nhập số cần kiểm tra:"))    
 #hàm kiểm tra 1 số có phải là padovan hay không
 def la_padovan(m):
     day = day_padovan(m) # sinh dãy đến khi >=m
     return m in day      # kiểm tra x có trong dãy padovan không
-
-K = int(input("nhập số K:"))
-m = int(input("nhập số cần kiểm tra:"))
 if la_padovan(m):
     print(m,"là số padovan")
 else:
@@ -30,4 +29,9 @@ else:
 day_padovan_nho_hon_K = day_padovan(K)
 print("các số padovan nhỏ hơn hoăc bằng K là :",day_padovan_nho_hon_K)
        
+if la_padovan(m):
+    print(m,"là số padovan")
+else:
+    print(m,"không phải là số padovan")
+   
  
