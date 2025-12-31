@@ -55,7 +55,12 @@ def Tinh_Tien(hoadon):
 
     hoadon["ThanhTien"] = int(tong)
     return hoadon
-
+#PhanBaiLamNhi
+"""
+- khoi_tao_file() → tạo file ds_hoadon.csv và ghi header nếu chưa có.
+- luu_file() → ghi danh sách hóa đơn (do Vũ nhập và tính tiền) xuống file CSV.
+- sap_xep() → sắp xếp danh sách hóa đơn theo ThanhTien giảm dần
+"""
 import csv
 import os
 
