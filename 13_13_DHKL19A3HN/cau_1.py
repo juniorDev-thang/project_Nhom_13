@@ -28,10 +28,5 @@ else:
 #hàm liệt kê dãy padovan nhỏ hơn hoặc bằng K
 day_padovan_nho_hon_K = day_padovan(K)
 print("các số padovan nhỏ hơn hoăc bằng K là :",day_padovan_nho_hon_K)
-       
-if la_padovan(m):
-    print(m,"là số padovan")
-else:
-    print(m,"không phải là số padovan")
-   
+
  
