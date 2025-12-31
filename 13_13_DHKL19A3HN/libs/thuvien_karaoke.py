@@ -6,7 +6,7 @@ def khoi_tao_file():
     if not os.path.exists("files"):
         os.makedirs("files")
     if not os.path.isfile(file_path):
-        with open(file_path, mode="w", newline="", encoding="utf-8") as f:
+        with open(file_path, mode="w", newline="") as f:
             writer = csv.writer(f)
             writer.writerow(["MaHD", "TenKhach", "LoaiPhong", "SoGio", "ThanhTien"])
 
@@ -15,22 +15,36 @@ def nhap_hoa_don():
     while True:
         ma = input("Nhập mã hóa đơn: ").strip()
         if ma == "":
+            print(" Mã hóa đơn không được để trống!")
             continue
+
         ten = input("Nhập tên khách: ").strip()
         if ten == "":
+            print(" Tên khách không được để trống!")
             continue
+
+        # Hỏi loại phòng rõ ràng hơn
+        print("Chọn loại phòng:")
+        print("1. VIP (300.000 VNĐ/giờ)")
+        print("2. Thường (150.000 VNĐ/giờ)")
         try:
-            loai = int(input("Nhập loại phòng (1: VIP, 2: Thường): "))
+            loai = int(input("Nhập loại phòng (1 hoặc 2): "))
             if loai not in [1, 2]:
+                print(" Loại phòng chỉ được nhập 1 hoặc 2!")
                 continue
         except ValueError:
+            print(" Loại phòng phải là số nguyên!")
             continue
+
         try:
             sogio = int(input("Nhập số giờ hát: "))
             if sogio <= 0:
+                print(" Số giờ hát phải > 0!")
                 continue
         except ValueError:
+            print(" Số giờ hát phải là số nguyên!")
             continue
+
         ds.append({
             "MaHD": ma,
             "TenKhach": ten,
@@ -38,6 +52,7 @@ def nhap_hoa_don():
             "SoGio": sogio,
             "ThanhTien": 0
         })
+
         tiep = input("Bạn có muốn nhập thêm hóa đơn? (y/n): ").lower()
         if tiep != "y":
             break
