@@ -1,6 +1,26 @@
+#=======================================
+#Câu 2: Viết chương trình quản lý hóa đơn của một quán Karaoke gồm thông tin: Mã hóa đơn; Tên khách; Loại phòng (1: VIP, 2: Thường); Số giờ hát; Thành tiền. (Thông tin nhập từ bàn phím: Mã, Tên, Loại phòng, Số giờ). 
+#I. Trong thư mục libs, viết module thuvien_karaoke.py gồm các hàm: 
+#1. Khởi tạo file ds_hoadon.csv trong thư mục files (tạo file và ghi header nếu chưa có). 
+#2. Nhập thông tin hóa đơn (trả về danh sách dictionary, chưa tính Thành tiền). 
+#3. Tính Thành tiền theo quy tắc: 
+#Phòng 1 (VIP): 300.000 VNĐ/giờ. 
+#Phòng 2 (Thường): 150.000 VNĐ/giờ. 
+#Khuyến mãi: Nếu hát >= 5 giờ: Giảm 20% tổng tiền. Nếu hát >= 5 giờ (và <5): 
+#Giảm 10% tổng tiền. 
+#4. Lưu danh sách hóa đơn vào file ds_hoadon.csv. 
+#5. Sắp xếp danh sách theo thứ tự giảm dần của Thành tiền. 
+#6. Hiển thị danh sách ra màn hình. 
+# =======================================
+
+# Ý 1,2,3 của Vũ
+# Ý 4,5,6 của Nhi
+
+
+
 import csv
 import os
-
+#1
 def khoi_tao_file():
     file_path = os.path.join("files", "ds_hoadon.csv")
     if not os.path.exists("files"):
@@ -9,7 +29,7 @@ def khoi_tao_file():
         with open(file_path, mode="w", newline="") as f:
             writer = csv.writer(f)
             writer.writerow(["MaHD", "TenKhach", "LoaiPhong", "SoGio", "ThanhTien"])
-
+#2
 def nhap_hoa_don():
     ds = []
     while True:
@@ -57,7 +77,7 @@ def nhap_hoa_don():
         if tiep != "y":
             break
     return ds
-
+#3
 def tinh_tien(hoadon):
     loai = hoadon["LoaiPhong"]
     sogio = hoadon["SoGio"]
@@ -69,7 +89,7 @@ def tinh_tien(hoadon):
         tong *= 0.9
     hoadon["ThanhTien"] = int(tong)
     return hoadon
-
+#4
 def luu_file(ds):
     file_path = os.path.join("files", "ds_hoadon.csv")
     with open(file_path, mode="a", newline="", encoding="utf-8") as f:
@@ -82,10 +102,10 @@ def luu_file(ds):
                 hd["SoGio"],
                 hd["ThanhTien"]
             ])
-
+#5
 def sap_xep(ds):
     return sorted(ds, key=lambda x: x["ThanhTien"], reverse=True)
-
+#6
 def hien_thi(ds):
     print("{:<10} {:<20} {:<10} {:<10} {:<15}".format("MaHD", "TenKhach", "LoaiPhong", "SoGio", "ThanhTien"))
     for hd in ds:
