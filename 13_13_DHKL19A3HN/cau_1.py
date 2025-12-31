@@ -30,4 +30,4 @@ else:
 day_padovan_nho_hon_K = day_padovan(K)
 print("các số padovan nhỏ hơn hoăc bằng K là :",day_padovan_nho_hon_K)
        
-    
+ 
