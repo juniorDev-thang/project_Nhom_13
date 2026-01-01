@@ -55,3 +55,23 @@ def Tinh_Tien(hoadon):
 
     hoadon["ThanhTien"] = int(tong)
     return hoadon
+#PhanBaiLamNhi
+import csv
+import os 
+#khoi_tao_file() → tạo file ds_hoadon.csv và ghi header nếu chưa có.
+def khoi_tao_file():
+    filename = "ds_hoadon.csv"
+    if not os.path.exists(filename):
+        with open(filename, mode="w", newline="", encoding="utf-8") as f:
+            writer = csv.writer(f)
+            writer.writerow(["MaHD", "TenKH", "SoLuong", "DonGia", "ThanhTien"])
+#luu_file() → ghi danh sách hóa đơn (do Vũ nhập và tính tiền) xuống file CSV.
+def luu_file(ds):
+    filename = "ds_hoadon.csv"
+    with open(filename, mode="a", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        for hd in ds:
+            writer.writerow([hd["MaHD"], hd["TenKhach"], hd["LoaiPhong"], hd["SoGio"], hd["ThanhTien"]])
+#sap_xep() → sắp xếp danh sách hóa đơn theo ThanhTien giảm dần
+def sap_xep(ds):
+    return sorted(ds, key=lambda x: x["ThanhTien"], reverse=True)
