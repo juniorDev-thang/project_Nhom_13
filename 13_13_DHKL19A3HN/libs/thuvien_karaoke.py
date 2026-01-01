@@ -112,24 +112,6 @@ def luu_file(ds):
 def sap_xep(ds):
     return sorted(ds, key=lambda x: x["ThanhTien"], reverse=True)
 =======
-#4.Lưu file
-
-def luu_file(ds):
-    file_path = os.path.join("files", "ds_hoadon.csv")
-    with open(file_path, mode="a", newline="", encoding="utf-8") as f:
-        writer = csv.writer(f)
-        for hd in ds:
-            writer.writerow([
-                hd["MaHD"],
-                hd["TenKhach"],
-                hd["LoaiPhong"],
-                hd["SoGio"],
-                hd["ThanhTien"]
-            ])
-#5.Sắp xếp
-
-def sap_xep(ds):
-    return sorted(ds, key=lambda x: x["ThanhTien"], reverse=True)
 #6.Hiển thị
 def hien_thi(ds):
     print("{:<10} {:<20} {:<10} {:<10} {:<15}".format("MaHD", "TenKhach", "LoaiPhong", "SoGio", "ThanhTien"))
