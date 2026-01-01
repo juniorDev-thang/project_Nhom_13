@@ -20,7 +20,8 @@
 
 import csv
 import os
-#1
+#1.Khởi tạo file
+
 def khoi_tao_file():
     file_path = os.path.join("files", "ds_hoadon.csv")
     if not os.path.exists("files"):
@@ -29,7 +30,7 @@ def khoi_tao_file():
         with open(file_path, mode="w", newline="") as f:
             writer = csv.writer(f)
             writer.writerow(["MaHD", "TenKhach", "LoaiPhong", "SoGio", "ThanhTien"])
-#2
+#2.Nhập hóa đơn
 def nhap_hoa_don():
     ds = []
     while True:
@@ -77,7 +78,7 @@ def nhap_hoa_don():
         if tiep != "y":
             break
     return ds
-#3
+#3.Tính tiền
 def tinh_tien(hoadon):
     loai = hoadon["LoaiPhong"]
     sogio = hoadon["SoGio"]
@@ -89,7 +90,8 @@ def tinh_tien(hoadon):
         tong *= 0.9
     hoadon["ThanhTien"] = int(tong)
     return hoadon
-#4
+#4.Lưu file
+
 def luu_file(ds):
     file_path = os.path.join("files", "ds_hoadon.csv")
     with open(file_path, mode="a", newline="", encoding="utf-8") as f:
@@ -102,10 +104,11 @@ def luu_file(ds):
                 hd["SoGio"],
                 hd["ThanhTien"]
             ])
-#5
+#5.Sắp xếp
+
 def sap_xep(ds):
     return sorted(ds, key=lambda x: x["ThanhTien"], reverse=True)
-#6
+#6.Hiển thị
 def hien_thi(ds):
     print("{:<10} {:<20} {:<10} {:<10} {:<15}".format("MaHD", "TenKhach", "LoaiPhong", "SoGio", "ThanhTien"))
     for hd in ds:
