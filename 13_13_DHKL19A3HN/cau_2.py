@@ -1,9 +1,13 @@
 <<<<<<< HEAD
+
+=======
+#<<<<<<< HEAD
 from libs.thuvien_karaoke import Nhap_Hoa_Don
 
 ds = Nhap_Hoa_Don()
 print(ds)
-=======
+#=======
+>>>>>>> origin/Vu
 #Thành viên 3: Đỗ Ngọc Anh
 #Làm Menu và Hiển thị:
 #Xử lý menu , import module ,gọi hàm,hiển thị danh sách
@@ -60,4 +64,7 @@ def menu():
 
 if __name__ == "__main__":
     menu()
->>>>>>> origin/NgocAnh
+<<<<<<< HEAD
+=======
+#>>>>>>> origin/NgocAnh
+>>>>>>> origin/Vu
