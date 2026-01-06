@@ -12,21 +12,39 @@ def day_padovan(gioi_han):
     while True :
         so_padovan_moi = day[-2] + day[-3] # công thức padovan p(n) = p(n-2)+p(n-3)
         if so_padovan_moi > gioi_han:       # nếu vượt quá giới hạn thì dừng
-            break    
+            break 
         day.append(so_padovan_moi)   # thêm số padovan vào cuối danh sách
     return day        
-K = int(input("nhập số K:"))
-m = int(input("nhập số cần kiểm tra:"))    
+  
 #hàm kiểm tra 1 số có phải là padovan hay không
+print("câu a)")
 def la_padovan(m):
-    day = day_padovan(m) # sinh dãy đến khi >=m
-    return m in day      # kiểm tra x có trong dãy padovan không
-if la_padovan(m):
-    print(m,"là số padovan")
-else:
-    print(m,"không phải là số padovan")
-#hàm liệt kê dãy padovan nhỏ hơn hoặc bằng K
-day_padovan_nho_hon_K = day_padovan(K)
-print("các số padovan nhỏ hơn hoăc bằng K là :",day_padovan_nho_hon_K)
+    if m < 1 :
+        return False
+    day = day_padovan(m)
+    return m in day
+try:
+    m = int(input("nhập m để kiểm tra (padovan): "))
+    if m <1:
+        print("số padovan phải >=1")
+    else:
+        if la_padovan(m):
+            print(f"{m} là số padovan")
+        else:
+            print(f"{m} không phải là số padovan")
+except ValueError:
+    print("vui lòng nhập số hợp lệ !!!")
 
- 
+#hàm liệt kê dãy padovan nhỏ hơn hoặc bằng K
+print("câu b)")
+try:
+    K = int(input("Nhập số K: "))
+    if K < 1:
+        print("K phải >=1")
+    else:
+        day_padovan_nho_hon_K = day_padovan(K)
+        tong = len(day_padovan_nho_hon_K)
+        print(f"các số padovan nhỏ hơn {K} là:",day_padovan_nho_hon_K)
+        print(f"tổng cộng có {tong} padovan ",tong)
+except ValueError:
+    print("vui lòng nhập số K hợp lệ!!!")
