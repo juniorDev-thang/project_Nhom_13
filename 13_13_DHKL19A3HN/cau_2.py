@@ -1,70 +1,113 @@
-<<<<<<< HEAD
-
-=======
-#<<<<<<< HEAD
-from libs.thuvien_karaoke import Nhap_Hoa_Don
-
-ds = Nhap_Hoa_Don()
-print(ds)
-#=======
->>>>>>> origin/Vu
-#Thành viên 3: Đỗ Ngọc Anh
-#Làm Menu và Hiển thị:
-#Xử lý menu , import module ,gọi hàm,hiển thị danh sách
 from libs.thuvien_karaoke import *
-
 def menu():
     khoi_tao_file()
-    # Biến lưu trữ danh sách hóa đơn đang xử lý trong phiên làm việc
-    ds_hien_tai = []
-
+    ds_hoa_don = []
     while True:
-        print("\n--- QUẢN LÝ QUÁN KARAOKE ---")
-        print("1. Nhập và tính tiền hóa đơn mới")
-        print("2. Sắp xếp danh sách (Giảm dần Thành tiền)")
-        print("3. Lưu dữ liệu vào file CSV")
-        print("4. Hiển thị danh sách hiện tại")
-        print("0. Thoát chương trình")
-        
-        chon = input("Mời bạn chọn chức năng: ")
+        print("\n"+ "="*60)
+        print("\t\t CHƯƠNG TRÌNH QUẢN LÝ QUÁN KARAOKE")
+        print("="*60)
+        print("1.Nhập thông tin hóa đơn")
+        print("2.Tính tiền cho các hóa đơn đã nhập")
+        print("3.Lưu hóa đơn vào danh sách file CSV")
+        print("4.Sắp xếp danh sách hiển thị theo thứ tự giảm dần")
+        print("0.Thoát chương trình")
 
-        if chon == "1":
-            moi = nhap_thong_tin()
-            if moi:
-                ds_hien_tai.extend(tinh_thanh_tien(moi))
-                print(">> Đã nhập và tính tiền thành công!")
-                hien_thi_danh_sach(ds_hien_tai)
-        
-        elif chon == "2":
-            if ds_hien_tai:
-                ds_hien_tai = sap_xep_giam_dan(ds_hien_tai)
-                print(">> Đã sắp xếp danh sách!")
-                hien_thi_danh_sach(ds_hien_tai)
+        print("="*60)
+        lua_chon = input("Mời bạn chọn các chức năng (0-4): ").strip()
+        if lua_chon == "1":
+            print("\n NHẬP THÔNG TIN HÓA ĐƠN")
+            print("="*60)
+            ds_moi = nhap_hoa_don()
+            if ds_moi:
+                ds_hoa_don.extend(ds_moi)
+                print(f"\n Đã nhập thành công {len(ds_moi)} hóa đơn")
             else:
-                print("!! Chưa có dữ liệu để sắp xếp.")
-
-        elif chon == "3":
-            if ds_hien_tai:
-                luu_file(ds_hien_tai)
-                print(f">> Đã lưu vào {FILE_PATH} thành công!")
+                print("\n Không có hóa đơn nào được nhập!")
+        elif lua_chon == "2":
+            print("\n TÍNH TIỀN HÓA ĐƠN")
+            print("="*60)
+            if not ds_hoa_don:
+                print("Chưa có hóa đơn nào được nhập! Vui lòng nhập hóa đơn trước khi tính tiền (Gợi ý: Chọn 1 trước)")
             else:
-                print("!! Danh sách trống, không có gì để lưu.")
+                # đếm số hóa đơn chưa tính tiền
+                chua_tinh = sum(1 for hd in ds_hoa_don if hd["ThanhTien"] == 0)
+                if chua_tinh == "0":
+                    print("Tất cả hóa đơn đã tính tiền!")
+                else:
+                    for hd in ds_hoa_don:
+                        if hd["ThanhTien"] == 0:
+                            tinh_tien(hd)
+                    print("ĐÃ TÍNH TIỀN CHO HÓA ĐƠN")
+            hien_thi(ds_hoa_don)
+            break
 
-        elif chon == "4":
-            if ds_hien_tai:
-                hien_thi_danh_sach(ds_hien_tai)
+        elif lua_chon == "3":
+            print("\n LƯU DỮ LIỆU VÀO FILE CSV")
+            print("="*60)
+            if not ds_hoa_don:
+                print("Danh sách trống! Không có gì để lưu")
             else:
-                print("!! Danh sách hiện đang trống.")
+                #kiểm tra xem tình tiền chưa
+                chua_tinh = sum(1 for hd in ds_hoa_don if hd["ThanhTien"] == 0)
 
-        elif chon == "0":
-            print("Tạm biệt! Chúc bạn một ngày tốt lành.")
+                if chua_tinh > 0:
+                    print(f"Cảnh báo: Có {chua_tinh} hóa đơn chưa được tính tiền!")
+                    xac_nhan = input("Bạn có muốn tính tiền trước khi lưu? (y/n) ").lower()
+                    if xac_nhan == "y":
+                        for hd in ds_hoa_don:
+                            if hd["ThanhTien"] == 0:
+                                tinh_tien(hd)
+                        print("Đã tính tiền xong!")
+                    else:
+                        print("Tính tiền mới được vào hát hoặc đi về!")
+                        break
+
+                luu_file(ds_hoa_don)
+                print(f"Đã lưu {len(ds_hoa_don)} hóa đơn vào files/ds_hoadon.csv")
+
+        elif lua_chon == "4":
+            print("\n SẮP XẾP GIẢM DẦN VÀ HIỂN THỊ DANH SÁCH")
+            print("="*60)
+            if not ds_hoa_don:
+                print("Danh sách trống! Vui lòng nhập hóa đơn trước (chọn 1) ")
+            else:
+                chua_tinh = sum(1 for hd in ds_hoa_don if hd["ThanhTien"] == 0)
+
+                if chua_tinh > 0:
+                    print(f"Có {chua_tinh} hóa đơn chưa được tính tiền!")
+                    print("sắp xếp sẽ không chính xác. Vui lòng tính tiền trước (chọn 2 \n")
+                ds_hoa_don = sap_xep(ds_hoa_don)
+                print("Đã sắp xếp hóa đơn theo thứ tự giảm dần của thành tiền!\n")
+
+                hien_thi(ds_hoa_don)
+
+
+        elif lua_chon == "0":
+            print("="*60)
+            if ds_hoa_don:
+                print("Bạn có dữ liệu chưa được lưu vào file!")
+                xac_nhan = input("Bạn có muốn lưu chương trình trước khi thoát? (y/n) ").lower()
+                if xac_nhan == "y":
+                    for hd in ds_hoa_don:
+                        if hd["ThanhTien"] == 0:
+                            tinh_tien(hd)
+                    luu_file(ds_hoa_don)
+                    print(("Bạn đã lưu dữ liệu thành công!"))
+            print("Cảm ơn bạn đã sử dụng chương trình!")
+            print("Hẹn gặp lại!")
+            print("="*60)
             break
         else:
-            print("!! Lựa chọn không hợp lệ, vui lòng chọn lại.")
+            print("Lựa chọn không hợp lệ!")
 
-if __name__ == "__main__":
-    menu()
-<<<<<<< HEAD
-=======
-#>>>>>>> origin/NgocAnh
->>>>>>> origin/Vu
+
+        
+if __name__=="__main__":
+    try:
+        menu()
+    except  KeyboardInterrupt:
+        print("\n\n Chương trình bị ngắt bởi người dùng!")
+        print("Tạm biệt!\n")
+    except Exception as e:
+        print(f"Lỗi không mong muốn: {e}")
+        print("Vui lòng liên hệ nhóm 13 để giải quyết! \n")

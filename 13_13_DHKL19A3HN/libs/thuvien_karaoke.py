@@ -1,122 +1,176 @@
-#=======================================
-#Câu 2: Viết chương trình quản lý hóa đơn của một quán Karaoke gồm thông tin: Mã hóa đơn; Tên khách; Loại phòng (1: VIP, 2: Thường); Số giờ hát; Thành tiền. (Thông tin nhập từ bàn phím: Mã, Tên, Loại phòng, Số giờ). 
-#I. Trong thư mục libs, viết module thuvien_karaoke.py gồm các hàm: 
-#1. Khởi tạo file ds_hoadon.csv trong thư mục files (tạo file và ghi header nếu chưa có). 
-#2. Nhập thông tin hóa đơn (trả về danh sách dictionary, chưa tính Thành tiền). 
-#3. Tính Thành tiền theo quy tắc: 
-#Phòng 1 (VIP): 300.000 VNĐ/giờ. 
-#Phòng 2 (Thường): 150.000 VNĐ/giờ. 
-#Khuyến mãi: Nếu hát >= 5 giờ: Giảm 20% tổng tiền. Nếu hát >= 5 giờ (và <5): 
-#Giảm 10% tổng tiền. 
-#4. Lưu danh sách hóa đơn vào file ds_hoadon.csv. 
-#5. Sắp xếp danh sách theo thứ tự giảm dần của Thành tiền. 
-#6. Hiển thị danh sách ra màn hình. 
-# =======================================
+# module
+'''
+Viết chương trình quản lý hóa đơn của một quán Karaoke gồm thông tin: Mã 
+hóa đơn; Tên khách; Loại phòng (1: VIP, 2: Thường); Số giờ hát; Thành tiền. (Thông 
+tin nhập từ bàn phím: Mã, Tên, Loại phòng, Số giờ). 
+I. Trong thư mục libs, viết module thuvien_karaoke.py gồm các hàm: 
+1. Khởi tạo file ds_hoadon.csv trong thư mục files (tạo file và ghi header nếu 
+chưa có). 
+2. Nhập thông tin hóa đơn (trả về danh sách dictionary, chưa tính Thành tiền).  
+3. Tính Thành tiền theo quy tắc: 
+Phòng 1 (VIP): 300.000 VNĐ/giờ. 
+Phòng 2 (Thường): 150.000 VNĐ/giờ. 
+Khuyến mãi: Nếu hát >= 5 giờ: Giảm 20% tổng tiền. Nếu hát >= 5 giờ (và <5): 
+Giảm 10% tổng tiền. 
+4. Lưu danh sách hóa đơn vào file ds_hoadon.csv. 
+5. Sắp xếp danh sách theo thứ tự giảm dần của Thành tiền. 
+6. Hiển thị danh sách ra màn hình. 
 
-# Ý 1,2,3 của Vũ
-# Ý 4,5,6 của Nhi
-
-
-
-import csv
+'''
 import os
-#1.Khởi tạo file
-
+import csv
+# 1
 def khoi_tao_file():
-    file_path = os.path.join("files", "ds_hoadon.csv")
-    if not os.path.exists("files"):
-        os.makedirs("files")
+    file_path = os.path.join("files","ds_hoadon.csv") #-  tạo thư mục files\ds_hoadon.csv
+    if not os.path.exists("files"): #kiểm tra files tồn tại hay chưa
+        os.makedirs("files")  # tạo file nếu chưa có
     if not os.path.isfile(file_path):
-        with open(file_path, mode="w", newline="") as f:
+        with open(file_path,mode="w",newline="",encoding = "utf-8") as f:
             writer = csv.writer(f)
-            writer.writerow(["MaHD", "TenKhach", "LoaiPhong", "SoGio", "ThanhTien"])
-#2.Nhập hóa đơn
+            #tạo header
+            header = ["MaHD","TenKhach","LoaiPhong","SoGio","ThanhTien"]
+            writer.writerow(header)
+        print(f"đã tạo file mới {file_path}")
+    return file_path
+
+# 2
 def nhap_hoa_don():
+    # nhập vào list trả về dict
     ds = []
+
     while True:
+        print("---NHẬP HÓA ĐƠN MỚI---")
+        # Nhập mã hóa đơn
         ma = input("Nhập mã hóa đơn: ").strip()
         if ma == "":
-            print(" Mã hóa đơn không được để trống!")
+            print("Mã hóa đơn không được để trống, vui lòng nhập lại!")
             continue
-
+        # Nhập tên khách
         ten = input("Nhập tên khách: ").strip()
         if ten == "":
-            print(" Tên khách không được để trống!")
+            print("Tên khách hàng không được để trống, vui lòng nhập lại!")
             continue
-
-        # Hỏi loại phòng rõ ràng hơn
-        print("Chọn loại phòng:")
-        print("1. VIP (300.000 VNĐ/giờ)")
-        print("2. Thường (150.000 VNĐ/giờ)")
+        # Chọn phòng
+        print("Chọn loại phòng: ")
+        print("Phòng 1 (VIP): 300.000 VNĐ/giờ.")
+        print("Phòng 2 (Thường): 150.000 VNĐ/giờ.")
+        phong = [1,2]
         try:
-            loai = int(input("Nhập loại phòng (1 hoặc 2): "))
-            if loai not in [1, 2]:
-                print(" Loại phòng chỉ được nhập 1 hoặc 2!")
+            loaiphong = int(input("Nhập loại phòng (1 hoặc 2): "))
+            if loaiphong not in phong:
+                print("Chỉ được nhập loại phòng 1 hoặc 2!")
                 continue
         except ValueError:
-            print(" Loại phòng phải là số nguyên!")
+            print("Loại phòng phải là số nguyên (vd: 1,2)")
             continue
-
+        # Giờ hát
         try:
             sogio = int(input("Nhập số giờ hát: "))
             if sogio <= 0:
-                print(" Số giờ hát phải > 0!")
+                print("Số giờ hát phải > 0!")
                 continue
         except ValueError:
-            print(" Số giờ hát phải là số nguyên!")
+            print("Số giờ hát phải là số nguyên (vd: 1,2,3......)")
             continue
-
         ds.append({
-            "MaHD": ma,
-            "TenKhach": ten,
-            "LoaiPhong": loai,
-            "SoGio": sogio,
-            "ThanhTien": 0
+            "MaHD":ma,
+            "TenKhach":ten,
+            "LoaiPhong":loaiphong,
+            "SoGio":sogio,
+            "ThanhTien":0
         })
-
-        tiep = input("Bạn có muốn nhập thêm hóa đơn? (y/n): ").lower()
-        if tiep != "y":
+        hoadon_tiep = input("Bạn có muốn nhập thêm hóa đơn không? (y/n): ").lower()
+        if hoadon_tiep == "n": # nếu y thì hóa đơn sẽ lặp lại vì mình dùng while True:
             break
     return ds
-#3.Tính tiền
+#3   
 def tinh_tien(hoadon):
-    loai = hoadon["LoaiPhong"]
+    #lấy thông tin LoaiPhong và SoGio
+    LoaiPhong = hoadon["LoaiPhong"]
     sogio = hoadon["SoGio"]
-    gia = 300000 if loai == 1 else 150000
-    tong = gia * sogio
+    #phân loại phòng tình tiền
+    p1 = 300000
+    p2 = 150000
+    if LoaiPhong == 1:
+        gia = p1
+    else:
+        gia = p2
+    tinhtien = gia * sogio
+    # giảm giá
     if sogio >= 5:
-        tong *= 0.8
-    elif sogio >= 3:
-        tong *= 0.9
-    hoadon["ThanhTien"] = int(tong)
+        tinhtien *= 0.8
+    elif sogio < 5:
+        tinhtien *= 0.9
+    hoadon["ThanhTien"] = int(tinhtien)
     return hoadon
-<<<<<<< HEAD
-#PhanBaiLamNhi
-import csv
-import os 
-#khoi_tao_file() → tạo file ds_hoadon.csv và ghi header nếu chưa có.
-def khoi_tao_file():
-    filename = "ds_hoadon.csv"
-    if not os.path.exists(filename):
-        with open(filename, mode="w", newline="", encoding="utf-8") as f:
-            writer = csv.writer(f)
-            writer.writerow(["MaHD", "TenKH", "SoLuong", "DonGia", "ThanhTien"])
-#luu_file() → ghi danh sách hóa đơn (do Vũ nhập và tính tiền) xuống file CSV.
+#4
 def luu_file(ds):
-    filename = "ds_hoadon.csv"
-    with open(filename, mode="a", newline="", encoding="utf-8") as f:
+    # tạo lại file cho chắc chắn nếu có rồi not sẽ bỏ qua =))
+    file_path = os.path.join("files","ds_hoadon.csv") #-  tạo thư mục files\ds_hoadon.csv
+    if not os.path.exists("files"): #kiểm tra files tồn tại hay chưa
+        os.makedirs("files")
+    with open(file_path,mode="w",newline="",encoding = "utf-8") as f:
         writer = csv.writer(f)
+        #tạo header
+        header = ["MaHD","TenKhach","LoaiPhong","SoGio","ThanhTien"]
+        writer.writerow(header)
+        # phần chính lưu dữ liệu
         for hd in ds:
-            writer.writerow([hd["MaHD"], hd["TenKhach"], hd["LoaiPhong"], hd["SoGio"], hd["ThanhTien"]])
-#sap_xep() → sắp xếp danh sách hóa đơn theo ThanhTien giảm dần
-def sap_xep(ds):
-    return sorted(ds, key=lambda x: x["ThanhTien"], reverse=True)
-=======
-#6.Hiển thị
+            writer.writerow([ # ghi hàng theo list /tuple
+                hd["MaHD"],
+                hd["TenKhach"],
+                hd["LoaiPhong"],
+                hd["SoGio"],
+                hd["ThanhTien"]
+            ])
+
+#5
+def sap_xep(ds): # giảm dần
+    return sorted(ds,key=lambda x: x["ThanhTien"],reverse=True)
+    
+#6
 def hien_thi(ds):
-    print("{:<10} {:<20} {:<10} {:<10} {:<15}".format("MaHD", "TenKhach", "LoaiPhong", "SoGio", "ThanhTien"))
+    # nếu không có gì trong csv
+    if not ds:
+        print("Danh sách trống!")
+        return 0
+
+    # tiêu đề bảng
+    print("{:<10} {:<20} {:<10} {:<10} {:<15}".format("MaHD","TenKhach","LoaiPhong","SoGio","ThanhTien"))
+    print("="*70)
+
     for hd in ds:
-        print("{:<10} {:<20} {:<10} {:<10} {:<15}".format(
-            hd["MaHD"], hd["TenKhach"], hd["LoaiPhong"], hd["SoGio"], hd["ThanhTien"]
+        if hd["LoaiPhong"] == 1:
+            Loai_Phong = "VIP"
+        else:
+            Loai_Phong = "Thường"
+
+        print("{:<10} {:<20} {:<10} {:<10} {:<15,} VND".format(
+            hd["MaHD"], hd["TenKhach"], Loai_Phong, hd["SoGio"], hd["ThanhTien"]
         ))
->>>>>>> origin/Vu
+
+    print("="*70)
+    print(f"Tổng số hóa đơn là: {len(ds)}")
+    print(f"Tổng doanh thu là: {sum(hd['ThanhTien'] for hd in ds):,} VND")
+# tạo thêm hàm cho kiểm tra bài tét bắt lỗi tạo file nếu có 
+def doc_file():
+    file_path = os.path.join("files","ds_hoadon.csv")
+    ds = []
+    try: 
+        if os.path.isfile(file_path):
+            with open(file_path, mode="r",newline="",encoding="utf-8") as f:
+                reader = csv.DictReader(f)
+                for hang in reader:
+                    ds.append({
+                        "MaHD":hang["MaHD"],
+                        "TenKhach":hang["TenKhach"],
+                        "LoaiPhong":int(hang["LoaiPhong"]),
+                        "SoGio":int(hang["SoGio"]),
+                        "ThanhTien":int(hang["ThanhTien"])
+                    })
+            print(f"đã đọc {len(ds)} hóa đơn từ file")
+        else:
+            print("File chưa tồn tại")
+    except Exception as e:
+        print(f"Lỗi khi đọc file: {e}")
+    return ds
